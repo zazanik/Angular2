@@ -1,0 +1,31 @@
+<header>
+    <img src="img/angular.svg" alt=""/>
+    <h1>{{ title }}</h1>
+</header>
+<main>
+
+    <form class="todo-form" (ngSubmit)="create(); todoForm.reset()" #todoForm ="ngForm">
+        <input name="title" [(ngModel)]="newTodoTitle" type="text" placeholder="Что делать?" required>
+        <button type="submit" [disabled]="todoForm.form.invalid">Добавить</button>
+    </form>
+
+    {{newTodoTitle}}
+    
+    <section class="todo-list" *ngIf="todos.length">
+        <div class="todo-item" *ngFor="let todo of todos" [class.completed]="todo.completed">
+
+            <button class="checkbox icon" (click)="toggle(todo)">
+                <i class="material-icons">{{ todo.completed ? 'check_box' : 'check_box_outline_blank' }}</i>
+            </button>
+
+            <div class="title">{{ todo.title }}</div>
+
+            <div class="actions">
+                <button class="delete icon" (click)="delete(todo)">
+                    <i class="material-icons">delete</i>
+                </button>
+            </div>
+
+        </div>
+    </section>
+</main>
